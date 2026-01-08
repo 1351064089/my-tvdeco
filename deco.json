@@ -1,272 +1,267 @@
 {
   "cache_time": 9200,
   "api_site": {
-    "site_00": {
+    "api_1": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子高清4K",
+      "name": "💎量子4K保底",
       "detail": "https://cj.lziapi.com/"
     },
-    "site_01": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡秒开",
-      "detail": "https://cj.ffzyapi.com/"
-    },
-    "site_02": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策蓝光",
-      "detail": "https://cj.huaceapi.com/"
-    },
-    "site_03": {
-      "api": "https://video.gture.top/api.php/provide/vod",
-      "name": "光速蓝光",
-      "detail": "https://video.gture.top/"
-    },
-    "site_04": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风影视",
-      "detail": "https://bfzyapi.com/"
-    },
-    "site_05": {
-      "api": "https://snzypm.com/api.php/provide/vod",
-      "name": "索尼资源",
-      "detail": "https://snzypm.com/"
-    },
-    "site_06": {
-      "api": "https://api.kkzy.tv/api.php/provide/vod",
-      "name": "快看资源",
-      "detail": "https://api.kkzy.tv/"
-    },
-    "site_07": {
-      "api": "https://jszyapi.com/api.php/provide/vod",
-      "name": "极速资源",
-      "detail": "https://jszyapi.com/"
-    },
-    "site_08": {
-      "api": "https://www.feisuzyapi.com/api.php/provide/vod",
-      "name": "飞速高清",
-      "detail": "https://www.feisuzyapi.com/"
-    },
-    "site_09": {
-      "api": "https://api.tianyiapi.com/api.php/provide/vod",
-      "name": "天翼影视",
-      "detail": "https://api.tianyiapi.com/"
-    },
-    "site_10": {
-      "api": "https://www.605zy.cc/api.php/provide/vod",
-      "name": "605资源",
-      "detail": "https://www.605zy.cc/"
-    },
-    "site_11": {
-      "api": "https://subocaiji.com/api.php/provide/vod",
-      "name": "速播资源",
-      "detail": "https://subocaiji.com/"
-    },
-    "site_12": {
-      "api": "https://cj.sdzyapi.com/api.php/provide/vod",
-      "name": "闪电资源",
-      "detail": "https://cj.sdzyapi.com/"
-    },
-    "site_13": {
-      "api": "https://www.kuaichezy.com/api.php/provide/vod",
-      "name": "快车资源",
-      "detail": "https://www.kuaichezy.com/"
-    },
-    "site_14": {
-      "api": "https://api.123zy.com/api.php/provide/vod",
-      "name": "123酷享",
-      "detail": "https://api.123zy.com/"
-    },
-    "site_15": {
+    "api_2": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子高清4K(备)",
+      "name": "💎量子4K保底",
       "detail": "https://cj.lziapi.com/"
     },
-    "site_16": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡秒开(备)",
-      "detail": "https://cj.ffzyapi.com/"
-    },
-    "site_17": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策蓝光(备)",
-      "detail": "https://cj.huaceapi.com/"
-    },
-    "site_18": {
-      "api": "https://video.gture.top/api.php/provide/vod",
-      "name": "光速蓝光(备)",
-      "detail": "https://video.gture.top/"
-    },
-    "site_19": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风影视(备)",
-      "detail": "https://bfzyapi.com/"
-    },
-    "site_20": {
-      "api": "https://snzypm.com/api.php/provide/vod",
-      "name": "索尼资源(备)",
-      "detail": "https://snzypm.com/"
-    },
-    "site_21": {
-      "api": "https://api.kkzy.tv/api.php/provide/vod",
-      "name": "快看资源(备)",
-      "detail": "https://api.kkzy.tv/"
-    },
-    "site_22": {
-      "api": "https://jszyapi.com/api.php/provide/vod",
-      "name": "极速资源(备)",
-      "detail": "https://jszyapi.com/"
-    },
-    "site_23": {
-      "api": "https://www.feisuzyapi.com/api.php/provide/vod",
-      "name": "飞速高清(备)",
-      "detail": "https://www.feisuzyapi.com/"
-    },
-    "site_24": {
-      "api": "https://api.tianyiapi.com/api.php/provide/vod",
-      "name": "天翼影视(备)",
-      "detail": "https://api.tianyiapi.com/"
-    },
-    "site_25": {
-      "api": "https://www.605zy.cc/api.php/provide/vod",
-      "name": "605资源(备)",
-      "detail": "https://www.605zy.cc/"
-    },
-    "site_26": {
-      "api": "https://subocaiji.com/api.php/provide/vod",
-      "name": "速播资源(备)",
-      "detail": "https://subocaiji.com/"
-    },
-    "site_27": {
-      "api": "https://cj.sdzyapi.com/api.php/provide/vod",
-      "name": "闪电资源(备)",
-      "detail": "https://cj.sdzyapi.com/"
-    },
-    "site_28": {
-      "api": "https://www.kuaichezy.com/api.php/provide/vod",
-      "name": "快车资源(备)",
-      "detail": "https://www.kuaichezy.com/"
-    },
-    "site_29": {
-      "api": "https://api.123zy.com/api.php/provide/vod",
-      "name": "123酷享(备)",
-      "detail": "https://api.123zy.com/"
-    },
-    "site_30": {
+    "api_3": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子高清4K(备)",
+      "name": "💎量子4K保底",
       "detail": "https://cj.lziapi.com/"
     },
-    "site_31": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡秒开(备)",
-      "detail": "https://cj.ffzyapi.com/"
-    },
-    "site_32": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策蓝光(备)",
-      "detail": "https://cj.huaceapi.com/"
-    },
-    "site_33": {
-      "api": "https://video.gture.top/api.php/provide/vod",
-      "name": "光速蓝光(备)",
-      "detail": "https://video.gture.top/"
-    },
-    "site_34": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风影视(备)",
-      "detail": "https://bfzyapi.com/"
-    },
-    "site_35": {
-      "api": "https://snzypm.com/api.php/provide/vod",
-      "name": "索尼资源(备)",
-      "detail": "https://snzypm.com/"
-    },
-    "site_36": {
-      "api": "https://api.kkzy.tv/api.php/provide/vod",
-      "name": "快看资源(备)",
-      "detail": "https://api.kkzy.tv/"
-    },
-    "site_37": {
-      "api": "https://jszyapi.com/api.php/provide/vod",
-      "name": "极速资源(备)",
-      "detail": "https://jszyapi.com/"
-    },
-    "site_38": {
-      "api": "https://www.feisuzyapi.com/api.php/provide/vod",
-      "name": "飞速高清(备)",
-      "detail": "https://www.feisuzyapi.com/"
-    },
-    "site_39": {
-      "api": "https://api.tianyiapi.com/api.php/provide/vod",
-      "name": "天翼影视(备)",
-      "detail": "https://api.tianyiapi.com/"
-    },
-    "site_40": {
-      "api": "https://www.605zy.cc/api.php/provide/vod",
-      "name": "605资源(备)",
-      "detail": "https://www.605zy.cc/"
-    },
-    "site_41": {
-      "api": "https://subocaiji.com/api.php/provide/vod",
-      "name": "速播资源(备)",
-      "detail": "https://subocaiji.com/"
-    },
-    "site_42": {
-      "api": "https://cj.sdzyapi.com/api.php/provide/vod",
-      "name": "闪电资源(备)",
-      "detail": "https://cj.sdzyapi.com/"
-    },
-    "site_43": {
-      "api": "https://www.kuaichezy.com/api.php/provide/vod",
-      "name": "快车资源(备)",
-      "detail": "https://www.kuaichezy.com/"
-    },
-    "site_44": {
-      "api": "https://api.123zy.com/api.php/provide/vod",
-      "name": "123酷享(备)",
-      "detail": "https://api.123zy.com/"
-    },
-    "site_45": {
+    "api_4": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子高清4K(备)",
+      "name": "💎量子4K保底",
       "detail": "https://cj.lziapi.com/"
     },
-    "site_46": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡秒开(备)",
-      "detail": "https://cj.ffzyapi.com/"
+    "api_5": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
     },
-    "site_47": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策蓝光(备)",
-      "detail": "https://cj.huaceapi.com/"
+    "api_6": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
     },
-    "site_48": {
-      "api": "https://video.gture.top/api.php/provide/vod",
-      "name": "光速蓝光(备)",
-      "detail": "https://video.gture.top/"
+    "api_7": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
     },
-    "site_49": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风影视(备)",
-      "detail": "https://bfzyapi.com/"
+    "api_8": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_9": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_10": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_11": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_12": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_13": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_14": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_15": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_16": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_17": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_18": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_19": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_20": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_21": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_22": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_23": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_24": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_25": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_26": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_27": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_28": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_29": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_30": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_31": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_32": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_33": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_34": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_35": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_36": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_37": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_38": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_39": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_40": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_41": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_42": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_43": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_44": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_45": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_46": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_47": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_48": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_49": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
+    },
+    "api_50": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "💎量子4K保底",
+      "detail": "https://cj.lziapi.com/"
     }
   },
   "custom_category": [
     {
-      "name": "🔥 4K·极清",
-      "type": "movie",
-      "query": "4K"
-    },
-    {
-      "name": "🎞️ 115·网盘资源",
+      "name": "🎞️ 115·网盘高清",
       "type": "movie",
       "query": "115"
     },
     {
-      "name": "🌸 2026新番",
-      "type": "anime",
-      "query": "2026"
+      "name": "🔥 4K·极清专区",
+      "type": "movie",
+      "query": "4K"
     },
     {
       "name": "📺 华语精选",
