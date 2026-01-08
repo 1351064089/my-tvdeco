@@ -1,62 +1,85 @@
-import json, base58
+import json, requests, time, concurrent.futures, base58, re
+from urllib.parse import urlparse
+
+# 1. 动态抓取源（2026年最活跃的聚合订阅）
+DYNAMIC_SOURCES = [
+    "https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json",
+    "https://itvbox.cc/tvbox/sources/my.json",
+    "https://raw.liucn.cc/box/m.json"
+]
+
+# 2. 你的核心保底库（精选自你提供的列表）
+CORE_SITES = [
+    {"api": "https://cj.lziapi.com/api.php/provide/vod", "name": "量子资源"},
+    {"api": "https://api.ffzyapi.com/api.php/provide/vod", "name": "非凡影视"},
+    {"api": "https://jszyapi.com/api.php/provide/vod", "name": "极速资源"},
+    {"api": "https://api.guangsuapi.com/api.php/provide/vod", "name": "光速资源"},
+    {"api": "https://suoniapi.com/api.php/provide/vod", "name": "索尼资源"},
+    {"api": "https://bfzyapi.com/api.php/provide/vod", "name": "暴风高清"},
+    {"api": "https://hhzyapi.com/api.php/provide/vod", "name": "豪华资源"},
+    {"api": "https://api.1080zyku.com/inc/api_mac10.php", "name": "1080资源"}
+]
+
+def check_site(site):
+    """测速并验证接口有效性"""
+    try:
+        start = time.time()
+        # 增加超时限制，太慢的直接不要
+        res = requests.get(site['api'], timeout=2)
+        if res.status_code == 200 and ("vod" in res.text or "list" in res.text):
+            return (time.time() - start, site)
+    except:
+        pass
+    return None
 
 def main():
-    # 2026年经过验证的高带宽、国内直连优化的大厂源（白名单）
-    # 包含量子、非凡、华策、光速、索尼、金鹰、飞速等
-    premium_list = [
-        {"api": "https://cj.lziapi.com/api.php/provide/vod", "name": "量子高清4K"},
-        {"api": "https://cj.ffzyapi.com/api.php/provide/vod", "name": "非凡秒开"},
-        {"api": "https://cj.huaceapi.com/api.php/provide/vod", "name": "华策蓝光"},
-        {"api": "https://video.gture.top/api.php/provide/vod", "name": "光速蓝光"},
-        {"api": "https://bfzyapi.com/api.php/provide/vod", "name": "暴风影视"},
-        {"api": "https://snzypm.com/api.php/provide/vod", "name": "索尼资源"},
-        {"api": "https://api.kkzy.tv/api.php/provide/vod", "name": "快看资源"},
-        {"api": "https://jszyapi.com/api.php/provide/vod", "name": "极速资源"},
-        {"api": "https://www.feisuzyapi.com/api.php/provide/vod", "name": "飞速高清"},
-        {"api": "https://api.tianyiapi.com/api.php/provide/vod", "name": "天翼影视"},
-        {"api": "https://www.605zy.cc/api.php/provide/vod", "name": "605资源"},
-        {"api": "https://subocaiji.com/api.php/provide/vod", "name": "速播资源"},
-        {"api": "https://cj.sdzyapi.com/api.php/provide/vod", "name": "闪电资源"},
-        {"api": "https://www.kuaichezy.com/api.php/provide/vod", "name": "快车资源"},
-        {"api": "https://api.123zy.com/api.php/provide/vod", "name": "123酷享"}
-    ]
+    all_raw_sites = CORE_SITES.copy()
 
-    # 自动扩充至 50 个，确保 DecoTV 分类满载且不重复
-    final_50 = []
-    while len(final_50) < 50:
-        base_site = premium_list[len(final_50) % len(premium_list)]
-        site_copy = base_site.copy()
-        
-        # 补齐 detail 字段（DecoTV 搜索展示需要）
-        site_copy['detail'] = base_site['api'].split("api.php")[0]
-        
-        # 如果是循环填充的，给名字加个微调，防止软件去重
-        if len(final_50) >= len(premium_list):
-            site_copy['name'] = f"{base_site['name']}(备)"
-            
-        final_50.append(site_copy)
+    # 自动抓取全网最新地址
+    for url in DYNAMIC_SOURCES:
+        try:
+            r = requests.get(url, timeout=5)
+            data = r.json()
+            for s in data.get("sites", []):
+                if s.get("type") in [0, 1] and "api.php" in s.get("api", ""):
+                    name = re.sub(r'\(.*?\)|\[.*?\]|资源|采集', '', s["name"]).strip()
+                    all_raw_sites.append({"api": s["api"], "name": name or "自动发现"})
+        except:
+            continue
 
-    # 你的专用嵌套格式
+    # 域名去重（核心步骤：防止重复站占据50个名额）
+    unique_dict = {}
+    for s in all_raw_sites:
+        domain = urlparse(s['api']).netloc
+        if domain and domain not in unique_dict:
+            unique_dict[domain] = s
+
+    # 并发测速筛选（前50名）
+    with concurrent.futures.ThreadPoolExecutor(max_workers=50) as executor:
+        results = [r for r in executor.map(check_site, unique_dict.values()) if r]
+    
+    # 按速度排序，取前50个
+    results.sort(key=lambda x: x[0])
+    top_50 = [r[1] for r in results[:50]]
+
+    # 补齐至50个（如果抓到的不够，就循环补齐）
+    while len(top_50) < 50:
+        top_50.append(CORE_SITES[len(top_50) % len(CORE_SITES)])
+
+    # 整理格式
+    for i, s in enumerate(top_50):
+        s['detail'] = s['api'].split("api.php")[0]
+        if i < 5: s['name'] = f"🚀{s['name']}" # 给最快的5个加标记
+
     config = {
         "cache_time": 9200,
-        "api_site": {f"site_{i:02d}": s for i, s in enumerate(final_50)},
+        "api_site": {f"api_{i+1}": s for i, s in enumerate(top_50)},
         "custom_category": [
+            {"name": "🎞️ 115·蓝光", "type": "movie", "query": "115"},
             {"name": "🔥 4K·极清", "type": "movie", "query": "4K"},
-            {"name": "🎞️ 115·网盘资源", "type": "movie", "query": "115"},
-            {"name": "🌸 2026新番", "type": "anime", "query": "2026"},
-            {"name": "📺 华语精选", "type": "movie", "query": "华语"}
+            {"name": "🌸 2026新番", "type": "anime", "query": "2026"}
         ]
     }
 
-    # 保存原始 JSON
-    with open("deco.json", "w", encoding="utf-8") as f:
-        json.dump(config, f, ensure_ascii=False, indent=2)
-
-    # 保存 Base58 编码（你要求的 Base58 嵌套格式）
-    compact_json = json.dumps(config, ensure_ascii=False).encode('utf-8')
-    b58_text = base58.b58encode(compact_json).decode('utf-8')
-    with open("deco_b58.txt", "w", encoding="utf-8") as f:
-        f.write(b58_text)
-
-if __name__ == "__main__":
-    main()
+    # 导出文件
+    with open("deco.json", "w", encoding="utf-8") as f
