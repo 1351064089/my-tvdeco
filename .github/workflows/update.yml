@@ -1,25 +1,25 @@
-name: Daily_Update
+name: Auto_Update_Deco
 on:
   schedule:
-    - cron: '0 20 * * *' # 这里的 20:00 UTC 就是北京时间凌晨 04:00
+    - cron: '0 20 * * *' # 北京时间凌晨 4:00
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - name: Update
+      - name: Install dependencies
+        run: pip install requests base58
+      - name: Run update
+        run: python update_deco.py
+      - name: Commit and Push
         run: |
-          pip install requests
-          python update_deco.py
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add deco.json
-          git commit -m "Auto Update" || exit 0
+          git config --local user.email "bot@github.com"
+          git config --local user.name "DecoBot"
+          git add .
+          git commit -m "Update 50 sites and B58" || exit 0
           git push
