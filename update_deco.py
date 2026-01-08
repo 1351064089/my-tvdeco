@@ -84,3 +84,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+import base58
+
+# 假设 config_str 是你生成的 JSON 字符串
+json_bytes = json.dumps(config, ensure_ascii=False).encode('utf-8')
+b58_encoded = base58.b58encode(json_bytes).decode('utf-8')
+
+with open("deco_b58.txt", "w", encoding="utf-8") as f:
+    f.write(b58_encoded)
