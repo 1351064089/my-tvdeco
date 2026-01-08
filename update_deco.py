@@ -10,22 +10,21 @@ def main():
         {"api": "https://api.guangsuapi.com/api.php/provide/vod", "name": "💎光速资源"},
         {"api": "https://suoniapi.com/api.php/provide/vod", "name": "💎索尼资源"},
         {"api": "https://bfzyapi.com/api.php/provide/vod", "name": "💎暴风高清"},
-        {"api": "https://hhzyapi.com/api.php/provide/vod", "name": "💎豪华资源"},
-        {"api": "https://api.1080zyku.com/inc/api_mac10.php", "name": "💎1080资源"},
-        {"api": "https://api.kkzy.tv/api.php/provide/vod", "name": "💎快看资源"},
-        {"api": "https://snzypm.com/api.php/provide/vod", "name": "💎新索尼"},
-        {"api": "https://www.feisuzyapi.com/api.php/provide/vod", "name": "💎飞速资源"},
+        {"api": "https://api.yzzy-api.com/inc/ldg_api_all.php/provide/vod", "name": "💎优质资源"}, # 新增：不同架构
+        {"api": "https://www.huyaapi.com/api.php/provide/vod", "name": "💎虎牙资源"}, # 新增：聚玩推荐
         {"api": "https://api.tianyiapi.com/api.php/provide/vod", "name": "💎天翼影视"},
-        {"api": "https://subocaiji.com/api.php/provide/vod", "name": "💎速播资源"},
-        {"api": "https://cj.sdzyapi.com/api.php/provide/vod", "name": "💎闪电资源"},
+        {"api": "https://www.605zy.cc/api.php/provide/vod", "name": "💎605资源"},
+        {"api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod", "name": "💎新浪资源"},
+        {"api": "https://dbzy.tv/api.php/provide/vod", "name": "💎豆瓣资源"}, # 新增：电影专用
+        {"api": "https://www.mdzyapi.com/api.php/provide/vod", "name": "💎魔都资源"}, # 新增：动漫强项
+        {"api": "https://api.wujinapi.me/api.php/provide/vod", "name": "💎无尽资源"},
+        {"api": "https://cj.yayazy.net/api.php/provide/vod", "name": "💎鸭鸭资源"},
+        {"api": "https://www.kuaichezy.com/api.php/provide/vod", "name": "💎快车资源"}, # 新增：老牌稳定
         {"api": "https://api.123zy.com/api.php/provide/vod", "name": "💎123资源"},
         {"api": "https://jinyingzy.com/api.php/provide/vod", "name": "💎金鹰资源"},
-        {"api": "https://cj.yayazy.net/api.php/provide/vod", "name": "💎鸭鸭资源"},
-        {"api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod", "name": "💎新浪资源"},
-        {"api": "https://www.605zy.cc/api.php/provide/vod", "name": "💎605资源"},
-        {"api": "https://ikunzyapi.com/api.php/provide/vod", "name": "💎ikun资源"}
+        {"api": "https://cj.sdzyapi.com/api.php/provide/vod", "name": "💎闪电资源"},
+        {"api": "https://api.kkzy.tv/api.php/provide/vod", "name": "💎快看资源"}
     ]
-
     final_50 = []
     # 强制填充到 50 个，不进行网络检测，确保在电视端全部可见
     while len(final_50) < 50:
