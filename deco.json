@@ -3,252 +3,252 @@
   "api_site": {
     "site_00": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
     "site_01": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
     "site_02": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
     "site_03": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
     },
     "site_04": {
-      "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
-      "detail": "https://cj.lziapi.com"
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
     },
     "site_05": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
-      "detail": "https://cj.ffzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_06": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
-      "detail": "https://cj.huaceapi.com"
-    },
-    "site_07": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
-    },
-    "site_08": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
-    "site_09": {
+    "site_07": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
-    "site_10": {
+    "site_08": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
+    "site_09": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
+    },
+    "site_10": {
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
+    },
     "site_11": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_12": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
     "site_13": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
     "site_14": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
     "site_15": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
     },
     "site_16": {
-      "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
-      "detail": "https://cj.lziapi.com"
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
     },
     "site_17": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
-      "detail": "https://cj.ffzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_18": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
-      "detail": "https://cj.huaceapi.com"
-    },
-    "site_19": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
-    },
-    "site_20": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
-    "site_21": {
+    "site_19": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
-    "site_22": {
+    "site_20": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
+    "site_21": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
+    },
+    "site_22": {
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
+    },
     "site_23": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_24": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
     "site_25": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
     "site_26": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
     "site_27": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
     },
     "site_28": {
-      "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
-      "detail": "https://cj.lziapi.com"
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
     },
     "site_29": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
-      "detail": "https://cj.ffzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_30": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
-      "detail": "https://cj.huaceapi.com"
-    },
-    "site_31": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
-    },
-    "site_32": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
-    "site_33": {
+    "site_31": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
-    "site_34": {
+    "site_32": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
+    "site_33": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
+    },
+    "site_34": {
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
+    },
     "site_35": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_36": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
     "site_37": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
     "site_38": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
     "site_39": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
     },
     "site_40": {
-      "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
-      "detail": "https://cj.lziapi.com"
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
     },
     "site_41": {
-      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
-      "detail": "https://cj.ffzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_42": {
-      "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
-      "detail": "https://cj.huaceapi.com"
-    },
-    "site_43": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
-    },
-    "site_44": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
-    "site_45": {
+    "site_43": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     },
-    "site_46": {
+    "site_44": {
       "api": "https://cj.huaceapi.com/api.php/provide/vod",
-      "name": "华策极清",
+      "name": "华策4K",
       "detail": "https://cj.huaceapi.com"
     },
+    "site_45": {
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "name": "量子高清",
+      "detail": "https://cj.lziapi.com"
+    },
+    "site_46": {
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "name": "非凡秒开",
+      "detail": "https://cj.ffzyapi.com"
+    },
     "site_47": {
-      "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "暴风高清",
-      "detail": "https://bfzyapi.com"
+      "api": "https://cj.huaceapi.com/api.php/provide/vod",
+      "name": "华策4K",
+      "detail": "https://cj.huaceapi.com"
     },
     "site_48": {
       "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子资源",
+      "name": "量子高清",
       "detail": "https://cj.lziapi.com"
     },
     "site_49": {
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
+      "name": "非凡秒开",
       "detail": "https://cj.ffzyapi.com"
     }
   },
@@ -259,7 +259,7 @@
       "query": "4K"
     },
     {
-      "name": "🎞️ 华语大片",
+      "name": "🎞️ 华语精选",
       "type": "movie",
       "query": "华语"
     },
