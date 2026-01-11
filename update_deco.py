@@ -1,11 +1,15 @@
 import json
 import requests
 import time
+import urllib3
+
+# 禁用安全请求警告（针对某些证书过期的资源站）
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ================= 配置区 =================
-# 核心源列表：仅保留万兆/4K/CDN重型节点
-# 延迟高没关系，只要出口带宽大
+# 核心源列表：包含 4K、万兆、以及你要求的茅台等精品资源
 TARGET_SITES = [
+    # --- 原有重型源 ---
     {"id": "sn_4k", "name": "💎 索尼·4K顶级采集", "api": "https://suoniapi.com/api.php/provide/vod"},
     {"id": "k4_zy", "name": "🚀 最大·4K特线", "api": "https://api.zuidapi.com/api.php/provide/vod"},
     {"id": "lz_4k", "name": "⚡ 量子·骨干加速", "api": "https://cj.lziapi.com/api.php/provide/vod"},
@@ -14,7 +18,15 @@ TARGET_SITES = [
     {"id": "sd_zy", "name": "📡 闪电·高频宽直连", "api": "https://sdzyapi.com/api.php/provide/vod"},
     {"id": "bf_cdn", "name": "🌪️ 暴风·CDN全节点", "api": "https://bfzyapi.com/api.php/provide/vod"},
     {"id": "yh_dm", "name": "🌸 樱花·动漫专线", "api": "https://m3u8.apiyhzy.com/api.php/provide/vod"},
-    {"id": "db_zy", "name": "🎬 豆瓣·高分榜单", "api": "https://caiji.dbzy.tv/api.php/provide/vod"}
+    {"id": "db_zy", "name": "🎬 豆瓣·高分榜单", "api": "https://caiji.dbzy.tv/api.php/provide/vod"},
+    
+    # --- 新增精品资源站 ---
+    {"id": "mt_zy", "name": "🍶 茅台·精品资源", "api": "https://www.maotaizy.com/api.php/provide/vod/"},
+    {"id": "ff_zy", "name": "🦅 非凡·秒播专线", "api": "https://cj.ffzyapi.com/api.php/provide/vod/"},
+    {"id": "wl_zy", "name": "✨ 卧龙·高清无水印", "api": "https://collect.wolongzy.cc/api.php/provide/vod/"},
+    {"id": "hc_zy", "name": "🐯 虎牙·海外加速", "api": "https://www.huayaapi.com/api.php/provide/vod/"},
+    {"id": "bd_zy", "name": "🧊 百度·云加速", "api": "https://api.apibdzy.com/api.php/provide/vod/"},
+    {"id": "ky_zy", "name": "✈️ 酷云·极速稳定", "api": "https://caiji.kuyunzy.net/inc/apijson.php/provide/vod/"}
 ]
 
 OUTPUT_FILE = "deco.json"
@@ -26,7 +38,7 @@ TIMEOUT = 15
 def check_and_build():
     valid_api_site = {}
     
-    print(f"开始探测重型源 (超时限制: {TIMEOUT}s)...")
+    print(f"开始探测资源站 (超时限制: {TIMEOUT}s)...")
     
     for site in TARGET_SITES:
         try:
