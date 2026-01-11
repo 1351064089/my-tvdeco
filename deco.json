@@ -50,11 +50,6 @@
       "api": "https://www.maotaizy.com/api.php/provide/vod/",
       "name": "🍶 茅台·精品资源",
       "detail": "https://www.maotaizy.com"
-    },
-    "wl_zy": {
-      "api": "https://collect.wolongzy.cc/api.php/provide/vod/",
-      "name": "✨ 卧龙·高清无水印",
-      "detail": "https://collect.wolongzy.cc"
     }
   },
   "custom_category": [
