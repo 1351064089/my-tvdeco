@@ -16,11 +16,6 @@
       "name": "⚡ 量子·骨干加速",
       "detail": "https://cj.lziapi.com"
     },
-    "gs_zy": {
-      "api": "https://api.guangsuapi.com/api.php/provide/vod",
-      "name": "🚀 光速·万兆响应",
-      "detail": "https://api.guangsuapi.com"
-    },
     "yz_hd": {
       "api": "https://api.yzzy-api.com/inc/apijson.php/provide/vod",
       "name": "🔥 优质·蓝光/1080P",
