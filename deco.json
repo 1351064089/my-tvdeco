@@ -31,6 +31,11 @@
       "name": "📡 闪电·高频宽直连",
       "detail": "https://sdzyapi.com"
     },
+    "bf_cdn": {
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "name": "🌪️ 暴风·CDN全节点",
+      "detail": "https://bfzyapi.com"
+    },
     "yh_dm": {
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "name": "🌸 樱花·动漫专线",
