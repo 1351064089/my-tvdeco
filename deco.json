@@ -40,6 +40,11 @@
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
       "name": "🌸 樱花·动漫专线",
       "detail": "https://m3u8.apiyhzy.com"
+    },
+    "mt_zy": {
+      "api": "https://www.maotaizy.com/api.php/provide/vod/",
+      "name": "🍶 茅台·精品资源",
+      "detail": "https://www.maotaizy.com"
     }
   },
   "custom_category": [
