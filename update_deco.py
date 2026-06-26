@@ -26,7 +26,7 @@ CORE_SITES = [
     {"id": "pg_zy", "name": "🍎 苹果·高清专线", "api": "https://api.apilyzy.com/api.php/provide/vod"}
 ]
 
-# 2. 全量备选解析源（包含18+分类）
+# 2. 全量备选解析源（不剥离 18+ 分类）
 PROVIDED_EXTRA_SITES = [
     {"name": "🎬 爱奇艺资源", "api": "https://iqiyizyapi.com/api.php/provide/vod"},
     {"name": "🎬 豆瓣资源", "api": "https://caiji.dbzy5.com/api.php/provide/vod"},
@@ -114,7 +114,7 @@ TARGET_TOTAL = 36
 # ================= 逻辑区 =================
 
 def fetch_external_apis():
-    """刮擦文本源并增加全面的错误拦截防御"""
+    """安全地刮擦指定文本源，错误全拦截"""
     print("🌐 正在刮擦指定的精简文本源...")
     collected = set()
     headers = {
@@ -130,13 +130,12 @@ def fetch_external_apis():
                 if any(x in link for x in ["/api.php", "provide/vod", "/api/json", "apijson", "/feifei"]):
                     clean_link = link.replace("\\/", "/").rstrip(",;\"'")
                     collected.add(clean_link)
-        except Exception as e:
-            print(f"⚠️ 刮擦地址时遇到非致命错误(已自动跳过): {e}")
+        except Exception:
             continue
     return list(collected)
 
 def verify_and_speed_test(api_info):
-    """测试接口状态，保证异常不中断程序"""
+    """多线程单点测速防护"""
     api_url = api_info["api"]
     try:
         test_url = f"{api_url}?ac=list" if "?" not in api_url else f"{api_url}&ac=list"
@@ -167,7 +166,7 @@ def check_and_build():
             all_tasks.append({"api": site["api"], "name": site["name"], "is_core": True})
             added_apis.add(site["api"])
             
-    # 2. 全量预设源
+    # 2. 全量备选源
     for site in PROVIDED_EXTRA_SITES:
         if site["api"] not in added_apis:
             all_tasks.append({"api": site["api"], "name": site["name"], "is_core": False})
@@ -183,10 +182,10 @@ def check_and_build():
                 "name": f"🤖 刮擦精简源_{idx+1:02d}",
                 "is_core": False
             })
-    except Exception as e:
-        print(f"⚠️ 解析外部刮擦源遇到错误: {e}")
+    except Exception:
+        pass
         
-    print(f"🔎 整合完毕，开始多线程并发测速...")
+    print(f"🔎 整合完毕，开始多线程并发测速排序...")
     
     valid_nodes = []
     try:
@@ -199,13 +198,13 @@ def check_and_build():
                         valid_nodes.append(res)
                 except Exception:
                     pass
-    except Exception as e:
-        print(f"💥 线程池处理遇到故障: {e}")
+    except Exception:
+        pass
 
     # 4. 排序
     valid_nodes.sort(key=lambda x: x.get("latency", 99999))
     
-    # 5. 组装数据
+    # 5. 截取前 36 个最快接口
     valid_api_site = {}
     final_nodes = valid_nodes[:TARGET_TOTAL]
     
@@ -240,19 +239,18 @@ def check_and_build():
         ]
     }
 
-    # 6. 安全写入文件
+    # 6. 安全写入本地文件（不再进行 base58 混淆，直接写入明文供软件拉取）
     try:
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(final_json, f, ensure_ascii=False, indent=2)
         
+        # 核心修复点：将处理后的前 36 个明文极速接口按换行写入 txt
         with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
             for key in valid_api_site:
                 f.write(f"{valid_api_site[key]['api']}\n")
-        print("🚀 文件 deco.json 与 deco_b58.txt 同步写入成功。")
+        print("🚀 deco.json 和 deco_b58.txt 已作为纯文本格式成功写入。")
     except Exception as e:
-        print(f"❌ 最终保存写入失败: {e}")
-    
-    print(f"✨ 运行总耗时: {int(time.time() - start_time)} 秒")
+        print(f"❌ 最终写入失败: {e}")
 
 if __name__ == "__main__":
     check_and_build()
