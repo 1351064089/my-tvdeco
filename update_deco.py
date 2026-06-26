@@ -111,7 +111,7 @@ TIMEOUT = 12
 MAX_WORKERS = 30   
 TARGET_TOTAL = 36  
 
-# ================= Base58 核心内置加密算法 =================
+# ================= Base58 内置核心加密模块 =================
 
 B58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
@@ -131,7 +131,7 @@ def base58_encode(raw_bytes: bytes) -> str:
             break
     return result
 
-# ================= 逻辑区 =================
+# ================= 逻辑处理区 =================
 
 def fetch_external_apis():
     print("🌐 正在刮擦指定的精简文本源...")
@@ -178,19 +178,19 @@ def check_and_build():
     all_tasks = []
     added_apis = set()
     
-    # 1. 核心源
+    # 1. 加载核心源
     for site in CORE_SITES:
         if site["api"] not in added_apis:
             all_tasks.append({"api": site["api"], "name": site["name"], "is_core": True})
             added_apis.add(site["api"])
             
-    # 2. 全量备选源
+    # 2. 加载全量备选源
     for site in PROVIDED_EXTRA_SITES:
         if site["api"] not in added_apis:
             all_tasks.append({"api": site["api"], "name": site["name"], "is_core": False})
             added_apis.add(site["api"])
         
-    # 3. 刮擦源
+    # 3. 解析刮擦源
     try:
         external_links = fetch_external_apis()
         fresh_links = [l for l in external_links if l not in added_apis]
@@ -219,15 +219,12 @@ def check_and_build():
     except Exception:
         pass
 
-    # 4. 排序
+    # 4. 速度优先排序
     valid_nodes.sort(key=lambda x: x.get("latency", 99999))
     
-    # 5. 截取前 36 个最快接口
+    # 5. 截取前 36 个最优接口
     valid_api_site = {}
     final_nodes = valid_nodes[:TARGET_TOTAL]
-    
-    # 构建明文换行文本串（用来生成 Base58 密文流）
-    raw_txt_content = ""
     
     for i, node in enumerate(final_nodes):
         try:
@@ -245,11 +242,10 @@ def check_and_build():
                 "name": display_name,
                 "detail": node["api"].split("/api.php")[0] if "/api.php" in node["api"] else node["api"]
             }
-            # 累加接口到明文文本串中
-            raw_txt_content += f"{node['api']}\n"
         except Exception:
             continue
 
+    # 组装符合规范的完整 JSON 对象
     final_json = {
         "cache_time": 9200,
         "api_site": valid_api_site,
@@ -262,28 +258,25 @@ def check_and_build():
         ]
     }
 
-    # 6. 安全写入本地文件
+    # 6. 文件安全生成与全量 Base58 转换
     try:
-        # 写入未加密的完整配置（供其他用途留底）
+        # 先保存明文的 JSON 数据
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(final_json, f, ensure_ascii=False, indent=2)
         
-        # 【核心修复】：将拼装好的 36 个接口进行 Base58 转换
-        if raw_txt_content:
-            # 去除尾部多余的换行符，并转换为 bytes 字节流
-            encoded_bytes = raw_txt_content.strip().encode("utf-8")
-            b58_encrypted_string = base58_encode(encoded_bytes)
+        # 【核心调整】：将完整的 json 字典对象转换为紧凑的文本字符串，之后对它整体实施 Base58 加密
+        json_string_content = json.dumps(final_json, ensure_ascii=False)
+        encoded_bytes = json_string_content.encode("utf-8")
+        b58_encrypted_string = base58_encode(encoded_bytes)
+        
+        # 写入加密文件
+        with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
+            f.write(b58_encrypted_string)
             
-            # 将生成的 Base58 混淆密文全量写入文本
-            with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
-                f.write(b58_encrypted_string)
-                
-            print(f"🚀 数据加密成功！已生成 Base58 加密流并写入到 {OUTPUT_TXT_FILE}")
-        else:
-            print("⚠️ 未筛选到有效节点，跳过 Base58 写入。")
+        print(f"🚀 【全量 JSON 编码完成】已成功将整个 JSON 结构的 Base58 密文流写入 {OUTPUT_TXT_FILE}")
             
     except Exception as e:
-        print(f"❌ 最终写入失败: {e}")
+        print(f"❌ 最终保存写入失败: {e}")
 
 if __name__ == "__main__":
     check_and_build()
