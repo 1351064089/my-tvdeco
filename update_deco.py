@@ -9,7 +9,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ================= 配置区 =================
-# (CORE_SITES 和 PROVIDED_EXTRA_SITES 保持不变，确保包含所有资源)
+
+# 1. 核心源：升级为包含“云盘/海外专线”的重型节点
 CORE_SITES = [
     {"id": "sn_4k", "name": "💎 索尼·4K顶级采集", "api": "https://suoniapi.com/api.php/provide/vod"},
     {"id": "k4_zy", "name": "🚀 最大·4K特线", "api": "https://api.zuidapi.com/api.php/provide/vod"},
@@ -25,6 +26,7 @@ CORE_SITES = [
     {"id": "pg_zy", "name": "🍎 苹果·高清专线", "api": "https://api.apilyzy.com/api.php/provide/vod"}
 ]
 
+# 2. 全量备选解析源（保留所有常规影视和 18+ 特殊分类，完全不剥离）
 PROVIDED_EXTRA_SITES = [
     {"name": "🎬 爱奇艺资源", "api": "https://iqiyizyapi.com/api.php/provide/vod"},
     {"name": "🎬 豆瓣资源", "api": "https://caiji.dbzy5.com/api.php/provide/vod"},
@@ -62,6 +64,7 @@ PROVIDED_EXTRA_SITES = [
     {"name": "🎬 鸭鸭资源", "api": "https://cj.yayazy.net/api.php/provide/vod"},
     {"name": "🎬 快车资源", "api": "https://caiji.kuaichezy.org/api.php/provide/vod"},
     {"name": "🎬 闪电资源", "api": "https://xsd.sdzyapi.com/api.php/provide/vod"},
+    # --- 成人(18+) 分类资源并入测速序列 ---
     {"name": "🔞 麻豆视频", "api": "https://91md.me/api.php/provide/vod"},
     {"name": "🔞 AIvin", "api": "http://lbapiby.com/api.php/provide/vod"},
     {"name": "🔞 155资源", "api": "https://155api.com/api.php/provide/vod"},
@@ -98,16 +101,136 @@ PROVIDED_EXTRA_SITES = [
     {"name": "🔞 丝袜资源", "api": "https://siwazyw.tv/api.php/provide/vod"}
 ]
 
-CRAWL_SOURCES = ["https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt"]
+# 3. 指定刮擦的目标文本地址
+CRAWL_SOURCES = [
+    "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt"
+]
+
+OUTPUT_FILE = "deco.json"
+OUTPUT_TXT_FILE = "deco_b58.txt"
+TIMEOUT = 12       # 超时设置
+MAX_WORKERS = 30   # 并发线程数
+TARGET_TOTAL = 36  # 目标保留的总节点数
 
 # ================= 逻辑区 =================
-# (此部分逻辑与你原有代码保持一致，增加了 final_json 和 txt 的同时写入)
+
+def fetch_external_apis():
+    """定向刮擦指定文本地址中的全部合法影视接口（不进行剥离）"""
+    print("🌐 正在刮擦指定的精简文本源（全量保留，包含18+）...")
+    collected = set()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    for url in CRAWL_SOURCES:
+        try:
+            r = requests.get(url, timeout=10, verify=False, headers=headers)
+            if r.status_code != 200: continue
+            
+            # 增强正则：精确匹配包含 api.php、provide/vod、api/json 的各种连接
+            links = re.findall(r'https?://[^\s"\'\[\]\u4e00-\u9fa5]+', r.text)
+            for link in links:
+                if "/api.php" in link or "provide/vod" in link or "/api/json" in link or "apijson" in link:
+                    # 清洗链接中的多余转义符和尾部特殊标点
+                    clean_link = link.replace("\\/", "/").rstrip(",;\"'")
+                    collected.add(clean_link)
+        except Exception:
+            continue
+    return list(collected)
+
+def verify_and_speed_test(api_info):
+    """测试接口存活状态并记录响应延迟(毫秒)"""
+    api_url = api_info["api"]
+    try:
+        test_url = f"{api_url}?ac=list" if "?" not in api_url else f"{api_url}&ac=list"
+        start_time = time.time()
+        r = requests.get(test_url, timeout=TIMEOUT, verify=False)
+        latency = (time.time() - start_time) * 1000  # 转换为毫秒
+        
+        if r.status_code == 200 and ("list" in r.text or "vod" in r.text or "code" in r.text or "page" in r.text):
+            return {
+                "valid": True,
+                "api": api_url,
+                "name": api_info["name"],
+                "is_core": api_info["is_core"],
+                "latency": latency
+            }
+    except:
+        pass
+    return {"valid": False, "api": api_url}
 
 def check_and_build():
-    # ... (原有合并、测速、排序逻辑) ...
-    # 假设这里已经得到了 valid_api_site 这个字典
+    start_time = time.time()
+    all_tasks = []
+    added_apis = set()
     
-    # 6. 构造 JSON 并同步生成 txt
+    # 1. 归集核心源
+    for site in CORE_SITES:
+        if site["api"] not in added_apis:
+            all_tasks.append({
+                "api": site["api"],
+                "name": site["name"],
+                "is_core": True
+            })
+            added_apis.add(site["api"])
+            
+    # 2. 归集预设优质源
+    for site in PROVIDED_EXTRA_SITES:
+        if site["api"] not in added_apis:
+            all_tasks.append({
+                "api": site["api"],
+                "name": site["name"],
+                "is_core": False
+            })
+            added_apis.add(site["api"])
+        
+    # 3. 刮擦目标文本中的所有新接口
+    external_links = fetch_external_apis()
+    fresh_links = [l for l in external_links if l not in added_apis]
+    
+    for idx, link in enumerate(fresh_links):
+        all_tasks.append({
+            "api": link,
+            "name": f"🤖 刮擦精简源_{idx+1:02d}",
+            "is_core": False
+        })
+        
+    print(f"🔎 整合完毕：队列内包含 {len(added_apis)} 个预设源，从目标文本新挖出 {len(fresh_links)} 个潜在接口。")
+    print(f"⚡ 开始进行高并发测速排序...")
+    
+    valid_nodes = []
+    
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        future_to_node = {executor.submit(verify_and_speed_test, task): task for task in all_tasks}
+        for future in as_completed(future_to_node):
+            res = future.result()
+            if res["valid"]:
+                valid_nodes.append(res)
+
+    # 4. 速度优先：升序排序
+    valid_nodes.sort(key=lambda x: x["latency"])
+    
+    # 5. 截取前 36 个
+    valid_api_site = {}
+    final_nodes = valid_nodes[:TARGET_TOTAL]
+    
+    for i, node in enumerate(final_nodes):
+        speed_prefix = f"⚡[{int(node['latency'])}ms] " if i < 10 else ""
+        
+        if node["is_core"]:
+            display_name = f"{speed_prefix}{node['name']}"
+            site_id = f"core_{i}"
+        else:
+            clean_name = node["name"] if "刮擦精简源" not in node["name"] else f"精简源_{i+1:02d}"
+            display_name = f"{speed_prefix}{clean_name}"
+            site_id = f"auto_{i}"
+            
+        valid_api_site[site_id] = {
+            "api": node["api"],
+            "name": display_name,
+            "detail": node["api"].split("/api.php")[0] if "/api.php" in node["api"] else node["api"]
+        }
+
+    # 6. 构造 JSON 规范
     final_json = {
         "cache_time": 9200,
         "api_site": valid_api_site,
@@ -120,16 +243,19 @@ def check_and_build():
         ]
     }
 
-    # 写入 JSON
-    with open("deco.json", "w", encoding="utf-8") as f:
+    # 7. 写入 JSON 文件
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(final_json, f, ensure_ascii=False, indent=2)
     
-    # 【新增逻辑】同步写入 deco_b58.txt
-    with open("deco_b58.txt", "w", encoding="utf-8") as f:
+    # 8. 同步写入文本格式的 deco_b58.txt 供外链读取
+    with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
         for key in valid_api_site:
             f.write(f"{valid_api_site[key]['api']}\n")
     
-    print("✅ deco.json 和 deco_b58.txt 已同步更新。")
+    end_time = time.time()
+    print(f"\n✨ 更新完成！总用时: {int(end_time - start_time)} 秒")
+    print(f"📊 共筛选出 {len(valid_nodes)} 个有效源。")
+    print(f"🚀 {OUTPUT_FILE} 与 {OUTPUT_TXT_FILE} 已经同步写入并排序完成。")
 
 if __name__ == "__main__":
     check_and_build()
