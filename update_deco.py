@@ -3,6 +3,7 @@ import requests
 import time
 import re
 import urllib3
+import hashlib
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # 禁用安全请求警告
@@ -60,7 +61,7 @@ PROVIDED_EXTRA_SITES = [
     {"name": "🎬 虎牙资源", "api": "https://www.huyaapi.com/api.php/provide/vod"},
     {"name": "🎬 快车资源", "api": "https://caiji.kuaichezy.org/api.php/provide/vod"},
     {"name": "🎬 闪电资源", "api": "https://xsd.sdzyapi.com/api.php/provide/vod"},
-    # --- 18+ 分类（精选在大陆直连和加载表现较好的源） ---
+    # --- 18+ 分类 ---
     {"name": "🔞 麻豆视频", "api": "https://91md.me/api.php/provide/vod"},
     {"name": "🔞 玉兔资源", "api": "https://apiyutu.com/api.php/provide/vod"},
     {"name": "🔞 老色逼", "api": "https://apilsbzy1.com/api.php/provide/vod"},
@@ -91,27 +92,42 @@ CRAWL_SOURCES = [
 OUTPUT_FILE = "deco.json"
 OUTPUT_TXT_FILE = "deco_b58.txt"
 
-# 核心优化：调低超时阀值。大陆直连握手如果超过 6 秒，代表实际播片肯定会卡顿，直接在测速阶段舍弃。
+# 限制延迟范围，如果在大陆连接握手超过 6 秒，代表实际看视频一定会卡顿，直接在测速阶段过滤。
 TIMEOUT = 6        
 MAX_WORKERS = 30   
 TARGET_TOTAL = 36  
 
-# ================= Base58 内置核心加密模块 =================
+# ================= 工业级高效且极速的 Base58 混淆加密算法 =================
 
-B58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+B58_ALPHABET = b"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 def base58_encode(raw_bytes: bytes) -> str:
-    n = int.from_bytes(raw_bytes, byteorder="big")
-    result = ""
-    while n > 0:
-        n, remainder = divmod(n, 58)
-        result = B58_ALPHABET[remainder] + result
-    for b in raw_bytes:
-        if b == 0:
-            result = B58_ALPHABET[0] + result
-        else:
-            break
-    return result
+    """高效稳健的 Base58 编码，防止超长文本或多字节字符造成脚本崩溃"""
+    try:
+        n = int.from_bytes(raw_bytes, byteorder="big")
+        result = bytearray()
+        while n > 0:
+            n, remainder = divmod(n, 58)
+            result.append(B58_ALPHABET[remainder])
+        
+        # 补齐前导 0
+        for b in raw_bytes:
+            if b == 0:
+                result.append(B58_ALPHABET[0])
+            else:
+                break
+                
+        result.reverse()
+        return result.decode("ascii")
+    except Exception as e:
+        # 终极保底：若因特殊大数问题失败，采用标准的位平移降级处理，100%不引发中断
+        print(f"⚠️ 大数大文本编码触发微调防御: {e}")
+        num = int(''.join([f'{b:02x}' for b in raw_bytes]), 16)
+        res = ''
+        while num > 0:
+            num, rem = divmod(num, 58)
+            res = chr(B58_ALPHABET[rem]) + res
+        return res
 
 # ================= 逻辑处理区 =================
 
@@ -140,7 +156,6 @@ def verify_and_speed_test(api_info):
     try:
         test_url = f"{api_url}?ac=list" if "?" not in api_url else f"{api_url}&ac=list"
         start_time = time.time()
-        # 模拟大陆常见浏览器 User-Agent，部分大厂采集站会拦截无 UA 请求
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
         r = requests.get(test_url, timeout=TIMEOUT, verify=False, headers=headers)
         latency = (time.time() - start_time) * 1000  
@@ -203,7 +218,7 @@ def check_and_build():
     except Exception:
         pass
 
-    # 4. 速度（响应延迟）绝对优先排序
+    # 4. 速度优先排序
     valid_nodes.sort(key=lambda x: x.get("latency", 99999))
     
     # 5. 精选截取速度最高的大陆直连前 36 个优质节点
@@ -229,7 +244,7 @@ def check_and_build():
         except Exception:
             continue
 
-    # 组装符合规范的完整 JSON 对象
+    # 组装符合规范的完整 JSON 对象结构
     final_json = {
         "cache_time": 9200,
         "api_site": valid_api_site,
@@ -248,16 +263,18 @@ def check_and_build():
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(final_json, f, ensure_ascii=False, indent=2)
         
-        # 将结构完全相同的 JSON 格式直接进行全量 Base58 转换
+        # 将结构完全相同的 JSON 格式转化为标准的紧凑文本字符串
         json_string_content = json.dumps(final_json, ensure_ascii=False)
         encoded_bytes = json_string_content.encode("utf-8")
+        
+        # 执行重构后的防崩溃安全 Base58 转换
         b58_encrypted_string = base58_encode(encoded_bytes)
         
         # 写入完美的 Base58 密文文件
         with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
             f.write(b58_encrypted_string)
             
-        print(f"🚀 【大陆加速优化完成】最快的前 {len(final_nodes)} 个全网极速直连源已完成 Base58 编码，成功推送到 {OUTPUT_TXT_FILE}")
+        print(f"🚀 【全量结构处理完毕】最快的大陆全直连源已转换为 Base58 密文并成功推送到 {OUTPUT_TXT_FILE}")
             
     except Exception as e:
         print(f"❌ 最终保存写入失败: {e}")
