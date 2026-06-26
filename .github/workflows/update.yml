@@ -1,27 +1,33 @@
-name: Auto_Update_Deco
-on:
-  schedule:
-    - cron: '0 20 * * *'
-  workflow_dispatch:
+# 将原来的版本替换如下：
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # 必须有写入权限
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      # 1. 升级 checkout 到 v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # 2. 升级 setup-python 到 v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
-      - name: Install deps
-        run: pip install requests base58
-      - name: Run script
-        run: python update_deco.py
-      - name: Push
+          python-version: '3.12' # 建议使用更新的 3.12 版本
+          
+      # 3. 如果你有安装依赖的步骤，确保使用最新命令
+      - name: Install dependencies
         run: |
-          git config --local user.email "bot@github.com"
-          git config --local user.name "DecoBot"
+          python -m pip install --upgrade pip
+          pip install requests
+          
+      # 4. 执行你的 Python 脚本
+      - name: Run update script
+        run: python update_deco.py
+        
+      # 5. 提交更新：确保同时提交两个文件
+      - name: Commit and push
+        run: |
+          git config --global user.name 'DecoBot'
+          git config --global user.email 'bot@github.com'
           git add deco.json deco_b58.txt
-          git commit -m "Refresh 50 sites" || exit 0
+          git commit -m "Refresh 50 sites" || echo "No changes to commit"
           git push
