@@ -1,33 +1,40 @@
-# 将原来的版本替换如下：
+name: Update Deco Data
+
+# 核心触发器：这里定义了何时触发更新
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'  # 每天午夜 0 点自动执行
+  workflow_dispatch:      # 允许你在 GitHub 页面手动点击按钮执行
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # 1. 升级 checkout 到 v4
       - name: Checkout code
         uses: actions/checkout@v4
         
-      # 2. 升级 setup-python 到 v5
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12' # 建议使用更新的 3.12 版本
+          python-version: '3.12'
           
-      # 3. 如果你有安装依赖的步骤，确保使用最新命令
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install requests
           
-      # 4. 执行你的 Python 脚本
       - name: Run update script
         run: python update_deco.py
         
-      # 5. 提交更新：确保同时提交两个文件
       - name: Commit and push
         run: |
           git config --global user.name 'DecoBot'
           git config --global user.email 'bot@github.com'
+          # 这里确保同时添加两个文件
           git add deco.json deco_b58.txt
+          # 使用 || echo 避免因没有改动而导致报错
           git commit -m "Refresh 50 sites" || echo "No changes to commit"
           git push
