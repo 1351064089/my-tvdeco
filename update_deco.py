@@ -111,10 +111,29 @@ TIMEOUT = 12
 MAX_WORKERS = 30   
 TARGET_TOTAL = 36  
 
+# ================= Base58 核心内置加密算法 =================
+
+B58_ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+
+def base58_encode(raw_bytes: bytes) -> str:
+    """标准 Base58 编码实现"""
+    n = int.from_bytes(raw_bytes, byteorder="big")
+    result = ""
+    while n > 0:
+        n, remainder = divmod(n, 58)
+        result = B58_ALPHABET[remainder] + result
+    
+    # 处理前导 0 字节
+    for b in raw_bytes:
+        if b == 0:
+            result = B58_ALPHABET[0] + result
+        else:
+            break
+    return result
+
 # ================= 逻辑区 =================
 
 def fetch_external_apis():
-    """安全地刮擦指定文本源，错误全拦截"""
     print("🌐 正在刮擦指定的精简文本源...")
     collected = set()
     headers = {
@@ -135,7 +154,6 @@ def fetch_external_apis():
     return list(collected)
 
 def verify_and_speed_test(api_info):
-    """多线程单点测速防护"""
     api_url = api_info["api"]
     try:
         test_url = f"{api_url}?ac=list" if "?" not in api_url else f"{api_url}&ac=list"
@@ -208,6 +226,9 @@ def check_and_build():
     valid_api_site = {}
     final_nodes = valid_nodes[:TARGET_TOTAL]
     
+    # 构建明文换行文本串（用来生成 Base58 密文流）
+    raw_txt_content = ""
+    
     for i, node in enumerate(final_nodes):
         try:
             speed_prefix = f"⚡[{int(node['latency'])}ms] " if i < 10 else ""
@@ -224,6 +245,8 @@ def check_and_build():
                 "name": display_name,
                 "detail": node["api"].split("/api.php")[0] if "/api.php" in node["api"] else node["api"]
             }
+            # 累加接口到明文文本串中
+            raw_txt_content += f"{node['api']}\n"
         except Exception:
             continue
 
@@ -239,16 +262,26 @@ def check_and_build():
         ]
     }
 
-    # 6. 安全写入本地文件（不再进行 base58 混淆，直接写入明文供软件拉取）
+    # 6. 安全写入本地文件
     try:
+        # 写入未加密的完整配置（供其他用途留底）
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(final_json, f, ensure_ascii=False, indent=2)
         
-        # 核心修复点：将处理后的前 36 个明文极速接口按换行写入 txt
-        with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
-            for key in valid_api_site:
-                f.write(f"{valid_api_site[key]['api']}\n")
-        print("🚀 deco.json 和 deco_b58.txt 已作为纯文本格式成功写入。")
+        # 【核心修复】：将拼装好的 36 个接口进行 Base58 转换
+        if raw_txt_content:
+            # 去除尾部多余的换行符，并转换为 bytes 字节流
+            encoded_bytes = raw_txt_content.strip().encode("utf-8")
+            b58_encrypted_string = base58_encode(encoded_bytes)
+            
+            # 将生成的 Base58 混淆密文全量写入文本
+            with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
+                f.write(b58_encrypted_string)
+                
+            print(f"🚀 数据加密成功！已生成 Base58 加密流并写入到 {OUTPUT_TXT_FILE}")
+        else:
+            print("⚠️ 未筛选到有效节点，跳过 Base58 写入。")
+            
     except Exception as e:
         print(f"❌ 最终写入失败: {e}")
 
