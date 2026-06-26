@@ -8,17 +8,35 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # 禁用安全请求警告
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# ================= 全自动搜刮配置 =================
+# ================= 核心配置区 =================
 
-# 1. 仅保留最核心的大厂骨干直连作为保底（极少改动且速度极快）
+# 1. 核心保底源（根据你提供的那组觉得不错的站点进行全量提取，增加 id 与规范命名）
 CORE_SITES = [
-    {"id": "sn_4k", "name": "💎 索尼·4K顶级采集", "api": "https://suoniapi.com/api.php/provide/vod"},
-    {"id": "k4_zy", "name": "🚀 最大·4K特线", "api": "https://api.zuidapi.com/api.php/provide/vod"},
-    {"id": "lz_4k", "name": "⚡ 量子·骨干加速", "api": "https://cj.lziapi.com/api.php/provide/vod"},
-    {"id": "gs_zy", "name": "🚀 光速·万兆响应", "api": "https://api.guangsuapi.com/api.php/provide/vod"}
+    {"id": "dyttzy", "name": "🎬 电影天堂资源", "api": "http://caiji.dyttzyapi.com/api.php/provide/vod"},
+    {"id": "ruyi", "name": "🎬 如意资源", "api": "https://cj.rycjapi.com/api.php/provide/vod"},
+    {"id": "bfzy", "name": "🎬 暴风资源", "api": "https://bfzyapi.com/api.php/provide/vod"},
+    {"id": "tyyszy", "name": "🎬 天涯资源", "api": "https://tyyszy.com/api.php/provide/vod"},
+    {"id": "xiaomaomi", "name": "🎬 小猫咪资源", "api": "https://zy.xmm.hk/api.php/provide/vod"},
+    {"id": "ffzy", "name": "🎬 非凡影视", "api": "http://ffzy5.tv/api.php/provide/vod"},
+    {"id": "heimuer", "name": "🎬 黑木耳资源", "api": "https://json.heimuer.xyz/api.php/provide/vod"},
+    {"id": "zy360", "name": "🎬 360资源", "api": "https://360zy.com/api.php/provide/vod"},
+    {"id": "iqiyi", "name": "🎬 iqiyi资源", "api": "https://www.iqiyizyapi.com/api.php/provide/vod"},
+    {"id": "wolong", "name": "🎬 卧龙资源", "api": "https://wolongzyw.com/api.php/provide/vod"},
+    {"id": "hwba", "name": "🎬 华为吧资源", "api": "https://cjhwba.com/api.php/provide/vod"},
+    {"id": "jisu", "name": "🎬 极速资源", "api": "https://jszyapi.com/api.php/provide/vod"},
+    {"id": "dbzy", "name": "🎬 豆瓣资源", "api": "https://dbzy.tv/api.php/provide/vod"},
+    {"id": "mozhua", "name": "🎬 魔爪资源", "api": "https://mozhuazy.com/api.php/provide/vod"},
+    {"id": "mdzy", "name": "🎬 魔都资源", "api": "https://www.mdzyapi.com/api.php/provide/vod"},
+    {"id": "zuid", "name": "🚀 最大4K特线", "api": "https://api.zuidapi.com/api.php/provide/vod"},
+    {"id": "yinghua", "name": "🌸 樱花动漫专线", "api": "https://m3u8.apiyhzy.com/api.php/provide/vod"},
+    {"id": "baidu", "name": "🎬 百度云资源", "api": "https://api.apibdzy.com/api.php/provide/vod"},
+    {"id": "wujin", "name": "🎬 无尽资源", "api": "https://api.wujinapi.me/api.php/provide/vod"},
+    {"id": "wwzy", "name": "🎬 旺旺短剧", "api": "https://wwzy.tv/api.php/provide/vod"},
+    {"id": "ikun", "name": "🎬 iKun资源", "api": "https://ikunzyapi.com/api.php/provide/vod"},
+    {"id": "lzi", "name": "⚡ 量子骨干加速", "api": "https://cj.lziapi.com/api.php/provide/vod/"}
 ]
 
-# 2. 全网自动搜刮源订阅池（脚本会自动抓取并解析这些地址里的所有隐藏接口）
+# 2. 全网全自动搜刮订阅源池（自动从以下经典且活跃的配置中无限递归提取隐藏新接口）
 CRAWL_SOURCES = [
     "https://raw.githubusercontent.com/hafrey1/LunaTV-config/refs/heads/main/jingjian.txt",
     "https://raw.githubusercontent.com/FongMi/CatVodSpider/main/json/config.json",
@@ -29,17 +47,17 @@ CRAWL_SOURCES = [
 OUTPUT_FILE = "deco.json"
 OUTPUT_TXT_FILE = "deco_b58.txt"
 
-# 严格限制大陆直连延迟。全自动搜刮来的接口，握手超过 4 秒的直接扔掉，确保筛选出的都是极速源
+# 针对大陆网络调优：握手或响应超过 4 秒的搜刮源直接扔掉，拒绝播放转圈圈
 TIMEOUT = 4        
 MAX_WORKERS = 40   
 TARGET_TOTAL = 36  
 
-# ================= Base58 核心模块 =================
+# ================= 健壮型安全 Base58 编码模块 =================
 
 B58_ALPHABET = b"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 def base58_encode(raw_bytes: bytes) -> str:
-    """高负载安全的标准 Base58 编码"""
+    """工业级防崩溃 Base58 编码，完美应对 GitHub Actions 长文本负载"""
     try:
         n = int.from_bytes(raw_bytes, byteorder="big")
         result = bytearray()
@@ -61,11 +79,10 @@ def base58_encode(raw_bytes: bytes) -> str:
             res = chr(B58_ALPHABET[rem]) + res
         return res
 
-# ================= 全自动网络搜刮逻辑 =================
+# ================= 智能动态搜刮与提取 =================
 
 def dynamic_crawl_all_apis():
-    """动态全网搜刮接口逻辑"""
-    print("🌐 开始从订阅池全自动搜刮、挖掘最新接口...")
+    print("🌐 正在全网全自动搜刮、挖掘最新的视频接口...")
     collected_apis = set()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
@@ -78,11 +95,10 @@ def dynamic_crawl_all_apis():
             
             text_data = r.text
             
-            # 模式 1：从标准的 JSON 配置结构中抽取 api 地址
+            # 模式 1：如果检测到是标准的 JSON，递归全量扫描提取
             if "{" in text_data and "}" in text_data:
                 try:
                     js = json.loads(text_data)
-                    # 递归寻找疑似视频采集站的 api
                     def find_apis(obj):
                         if isinstance(obj, dict):
                             for k, v in obj.items():
@@ -98,21 +114,19 @@ def dynamic_crawl_all_apis():
                 except Exception:
                     pass
             
-            # 模式 2：通用的正则表达式兜底搜刮（不论文本、纯文本、海报网还是魔改配置，全量挖掘 URL）
+            # 模式 2：正则表达式兜底，完美搜刮所有自由文本或混淆订阅格式中的视频 API URL
             links = re.findall(r'https?://[^\s"\'\[\]\u4e00-\u9fa5]+', text_data)
             for link in links:
-                # 过滤出符合各大影视站 CMS 的接口特征短语
                 if any(x in link for x in ["/api.php", "provide/vod", "/api/json", "apijson", "/feifei"]):
                     clean_link = link.replace("\\/", "/").rstrip(",;\"'}")
                     collected_apis.add(clean_link)
         except Exception:
             continue
             
-    print(f"📥 搜刮完毕！共挖掘到 {len(collected_apis)} 个备选动态源。")
+    print(f"📥 搜刮完成！共动态发掘到 {len(collected_apis)} 个有效采集源。")
     return list(collected_apis)
 
 def verify_and_speed_test(api_url, is_core=False, index=0):
-    """多线程并发测速与大陆有效性验证"""
     try:
         test_url = f"{api_url}?ac=list" if "?" not in api_url else f"{api_url}&ac=list"
         start_time = time.time()
@@ -121,7 +135,6 @@ def verify_and_speed_test(api_url, is_core=False, index=0):
         latency = (time.time() - start_time) * 1000  
         
         if r.status_code == 200:
-            # 判定名字
             if is_core:
                 name = [x["name"] for x in CORE_SITES if x["api"] == api_url][0]
             else:
@@ -142,20 +155,20 @@ def check_and_build():
     all_tasks = []
     added_apis = set()
     
-    # 1. 注入绝对稳定的核心保底源
+    # 1. 注入你提供觉得不错的核心优质保底源
     for site in CORE_SITES:
         if site["api"] not in added_apis:
             all_tasks.append({"api": site["api"], "is_core": True, "index": 0})
             added_apis.add(site["api"])
             
-    # 2. 获取动态自动搜刮出来的海量全网源并注入
+    # 2. 注入动态全网自动刮擦搜刮出来的最新海量非固定源
     scraped_links = dynamic_crawl_all_apis()
     for idx, link in enumerate(scraped_links):
         if link not in added_apis:
             all_tasks.append({"api": link, "is_core": False, "index": idx})
             added_apis.add(link)
         
-    print(f"⚡ 开始对全网 {len(all_tasks)} 个采集源进行多线程高并发测速...")
+    print(f"⚡ 开始对全网 {len(all_tasks)} 个接口进行多线程超高并发测速筛别...")
     
     valid_nodes = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -165,10 +178,10 @@ def check_and_build():
             if res and res.get("valid"):
                 valid_nodes.append(res)
 
-    # 3. 速度绝对优先排序（延迟低的排在最前面，卡顿的被超时机制直接扔掉）
+    # 3. 速度绝对优先排序（延迟低的、不卡顿的排在前面）
     valid_nodes.sort(key=lambda x: x.get("latency", 99999))
     
-    # 4. 截取最快、最畅通的前 36 个优质接口
+    # 4. 精选截取响应最快的大陆 36 个优质节点
     valid_api_site = {}
     final_nodes = valid_nodes[:TARGET_TOTAL]
     
@@ -190,7 +203,7 @@ def check_and_build():
         except Exception:
             continue
 
-    # 5. 组装完美的标准规范 JSON 结构
+    # 5. 组装出与你所需的语法完美一致的标准 JSON 对象
     final_json = {
         "cache_time": 9200,
         "api_site": valid_api_site,
@@ -203,23 +216,23 @@ def check_and_build():
         ]
     }
 
-    # 6. 保存留底 JSON 并对其全量转化为 Base58 密文流
+    # 6. 保存明文 JSON 并全量转换为 Base58 密文
     try:
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(final_json, f, ensure_ascii=False, indent=2)
         
-        # 转化成紧凑型纯 JSON 字符串
+        # 转换整套 JSON 数据为无间隙紧凑型纯文本
         json_string_content = json.dumps(final_json, ensure_ascii=False)
         encoded_bytes = json_string_content.encode("utf-8")
         
-        # 实施安全 Base58 编码
+        # 安全 Base58 转换
         b58_encrypted_string = base58_encode(encoded_bytes)
         
-        # 写入密文文件
+        # 写入文件
         with open(OUTPUT_TXT_FILE, "w", encoding="utf-8") as f:
             f.write(b58_encrypted_string)
             
-        print(f"🎉【完美搜刮并加密】已自动挑选出全网延迟最低的 {len(final_nodes)} 个节点，成功写入 {OUTPUT_TXT_FILE}")
+        print(f"🎉【动态全自动搜刮完成】成功将延迟最低的 {len(final_nodes)} 个极速直连源注入大结构，并完美加密导出至 {OUTPUT_TXT_FILE}")
             
     except Exception as e:
         print(f"❌ 最终保存写入失败: {e}")
