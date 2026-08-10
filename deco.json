@@ -3,58 +3,58 @@
   "api_site": {
     "core_0": {
       "api": "https://jszyapi.com/api.php/provide/vod",
-      "name": "⚡[186ms] 🎬 极速资源",
+      "name": "⚡[127ms] 🎬 极速资源",
       "detail": "https://jszyapi.com"
     },
     "core_1": {
       "api": "https://api.wujinapi.me/api.php/provide/vod",
-      "name": "⚡[194ms] 🎬 无尽资源",
+      "name": "⚡[163ms] 🎬 无尽资源",
       "detail": "https://api.wujinapi.me"
     },
     "core_2": {
       "api": "https://api.zuidapi.com/api.php/provide/vod",
-      "name": "⚡[344ms] 🚀 最大4K特线",
+      "name": "⚡[191ms] 🚀 最大4K特线",
       "detail": "https://api.zuidapi.com"
     },
     "core_3": {
-      "api": "https://ikunzyapi.com/api.php/provide/vod",
-      "name": "⚡[421ms] 🎬 iKun资源",
-      "detail": "https://ikunzyapi.com"
+      "api": "https://cj.lziapi.com/api.php/provide/vod/",
+      "name": "⚡[256ms] ⚡ 量子骨干加速",
+      "detail": "https://cj.lziapi.com"
     },
     "core_4": {
       "api": "https://tyyszy.com/api.php/provide/vod",
-      "name": "⚡[426ms] 🎬 天涯资源",
+      "name": "⚡[304ms] 🎬 天涯资源",
       "detail": "https://tyyszy.com"
     },
     "core_5": {
-      "api": "https://cj.lziapi.com/api.php/provide/vod/",
-      "name": "⚡[428ms] ⚡ 量子骨干加速",
-      "detail": "https://cj.lziapi.com"
-    },
-    "core_6": {
-      "api": "https://cjhwba.com/api.php/provide/vod",
-      "name": "⚡[512ms] 🎬 华为吧资源",
-      "detail": "https://cjhwba.com"
-    },
-    "core_7": {
       "api": "https://m3u8.apiyhzy.com/api.php/provide/vod",
-      "name": "⚡[548ms] 🌸 樱花动漫专线",
+      "name": "⚡[433ms] 🌸 樱花动漫专线",
       "detail": "https://m3u8.apiyhzy.com"
     },
+    "core_6": {
+      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "name": "⚡[485ms] 🎬 iKun资源",
+      "detail": "https://ikunzyapi.com"
+    },
+    "core_7": {
+      "api": "https://cjhwba.com/api.php/provide/vod",
+      "name": "⚡[531ms] 🎬 华为吧资源",
+      "detail": "https://cjhwba.com"
+    },
     "core_8": {
-      "api": "https://wwzy.tv/api.php/provide/vod",
-      "name": "⚡[631ms] 🎬 旺旺短剧",
-      "detail": "https://wwzy.tv"
+      "api": "https://dbzy.tv/api.php/provide/vod",
+      "name": "⚡[551ms] 🎬 豆瓣资源",
+      "detail": "https://dbzy.tv"
     },
     "core_9": {
       "api": "https://bfzyapi.com/api.php/provide/vod",
-      "name": "⚡[646ms] 🎬 暴风资源",
+      "name": "⚡[571ms] 🎬 暴风资源",
       "detail": "https://bfzyapi.com"
     },
     "core_10": {
-      "api": "https://dbzy.tv/api.php/provide/vod",
-      "name": "🎬 豆瓣资源",
-      "detail": "https://dbzy.tv"
+      "api": "https://wwzy.tv/api.php/provide/vod",
+      "name": "🎬 旺旺短剧",
+      "detail": "https://wwzy.tv"
     },
     "core_11": {
       "api": "https://wolongzyw.com/api.php/provide/vod",
@@ -62,19 +62,19 @@
       "detail": "https://wolongzyw.com"
     },
     "core_12": {
-      "api": "https://www.mdzyapi.com/api.php/provide/vod",
-      "name": "🎬 魔都资源",
-      "detail": "https://www.mdzyapi.com"
-    },
-    "core_13": {
       "api": "http://ffzy5.tv/api.php/provide/vod",
       "name": "🎬 非凡影视",
       "detail": "http://ffzy5.tv"
     },
-    "core_14": {
+    "core_13": {
       "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
       "name": "🎬 电影天堂资源",
       "detail": "http://caiji.dyttzyapi.com"
+    },
+    "core_14": {
+      "api": "https://www.mdzyapi.com/api.php/provide/vod",
+      "name": "🎬 魔都资源",
+      "detail": "https://www.mdzyapi.com"
     },
     "core_15": {
       "api": "https://360zy.com/api.php/provide/vod",
@@ -85,6 +85,11 @@
       "api": "https://cj.rycjapi.com/api.php/provide/vod",
       "name": "🎬 如意资源",
       "detail": "https://cj.rycjapi.com"
+    },
+    "core_17": {
+      "api": "https://www.iqiyizyapi.com/api.php/provide/vod",
+      "name": "🎬 iqiyi资源",
+      "detail": "https://www.iqiyizyapi.com"
     }
   },
   "custom_category": [
